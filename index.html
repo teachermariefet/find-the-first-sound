@@ -14,28 +14,22 @@
         body, html {
             margin: 0; padding: 0; height: 100%; overflow: hidden;
             font-family: 'Balsamiq Sans', cursive;
+            user-select: none;
         }
 
         /* Start Page */
         #start-page {
             position: absolute; width: 100%; height: 100%;
-            background: url('start page background.jpg') no-repeat center center/cover;
+            background: #4facfe url('start page background.jpg') no-repeat center center/cover;
             display: flex; flex-direction: column; align-items: center; 
-            justify-content: flex-end; 
-            padding-bottom: 6vh; 
-            z-index: 100;
+            justify-content: flex-end; padding-bottom: 6vh; z-index: 100;
         }
 
-        .start-page-controls {
-            display: flex; flex-direction: column; align-items: center; gap: 20px;
-            position: relative;
-        }
+        .start-page-controls { display: flex; flex-direction: column; align-items: center; gap: 20px; }
 
         #play-btn {
             padding: 25px 90px; font-size: 50px; cursor: pointer; background: #2ecc71; color: white;
-            border: 6px solid #fff; border-radius: 30px; font-family: 'Balsamiq Sans', cursive;
-            font-weight: bold; box-shadow: 0 10px 20px rgba(0,0,0,0.4); transition: 0.2s;
-            text-shadow: 2px 2px rgba(0,0,0,0.3);
+            border: 6px solid #fff; border-radius: 30px; font-weight: bold; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
 
         #edit-btn {
@@ -43,31 +37,9 @@
             border: 3px solid white; border-radius: 12px; cursor: pointer;
         }
 
-        /* Countdown */
-        #countdown-text {
-            display: none; position: absolute; bottom: 100px;
-            color: #ff4757; font-size: 150px; font-weight: bold;
-            text-shadow: 4px 4px 10px rgba(0,0,0,0.5);
-            pointer-events: none;
-        }
-
-        /* Edit Modal */
-        #edit-modal {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: #fff; padding: 30px; border-radius: 20px; border: 5px solid #333; z-index: 200;
-            text-align: center;
-        }
-        #vocab-input { width: 350px; height: 120px; font-size: 20px; padding: 10px; margin-bottom: 15px; }
-
         /* Game Screen */
-        #game-container {
-            display: none; height: 100%; width: 100%; flex-direction: row; position: relative;
-        }
-
-        .side {
-            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-around;
-            padding: 20px;
-        }
+        #game-container { display: none; height: 100%; width: 100%; flex-direction: row; position: relative; }
+        .side { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-around; padding: 20px; transition: background 0.2s; }
         #side-a { background: #fff0f0; border-right: 4px dashed #ccc; }
         #side-b { background: #f0faff; }
 
@@ -76,118 +48,82 @@
         .side-b-text { color: var(--team-b); }
 
         .vocab-img-container {
-            width: 450px; height: 350px; 
-            border: 10px solid #333; border-radius: 25px;
-            background: white; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
+            width: 450px; height: 350px; border: 10px solid #333; border-radius: 25px;
+            background: white; overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
         .vocab-img { width: 100%; height: 100%; object-fit: contain; }
 
         .word-display { font-size: 100px; letter-spacing: 15px; display: flex; align-items: center; gap: 10px; font-weight:bold; }
-        .drop-zone {
-            width: 110px; height: 120px; border: 6px dashed #aaa; border-radius: 20px;
-            display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.6);
-        }
+        .drop-zone { width: 110px; height: 120px; border: 6px dashed #aaa; border-radius: 20px; display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.6); }
 
         .letters-container { display: flex; gap: 30px; justify-content: center; min-height: 120px; }
-        .letter {
-            width: 100px; height: 100px; background: white; border: 5px solid #333; border-radius: 20px;
-            display: flex; align-items: center; justify-content: center; font-size: 60px; font-weight: bold;
-            cursor: grab; box-shadow: 0 8px 0 #333;
-        }
+        .letter { width: 100px; height: 100px; background: white; border: 5px solid #333; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 60px; font-weight: bold; cursor: pointer; box-shadow: 0 8px 0 #333; }
+        .letter:active { transform: translateY(4px); box-shadow: 0 4px 0 #333; }
 
-        #timer-bomb {
-            position: absolute; left: 50%; top: 5%; transform: translateX(-50%);
-            width: 110px; height: 110px; background: #222; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: white; border: 6px solid #ff4757; z-index: 10;
-            transition: all 0.3s;
-        }
+        #timer-bomb { position: absolute; left: 50%; top: 5%; transform: translateX(-50%); width: 110px; height: 110px; background: #222; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; border: 6px solid #ff4757; z-index: 10; }
         #timer-bomb span { font-size: 45px; font-weight: bold;}
-        
-        /* Double Points Animation */
-        .double-mode {
-            background: #ff4757 !important;
-            transform: translateX(-50%) scale(1.2);
-            box-shadow: 0 0 20px #ff4757;
-        }
 
-        #double-alert {
-            display: none; position: absolute; top: 18%; left: 50%; transform: translateX(-50%);
-            background: #f1c40f; color: #222; padding: 10px 30px; border-radius: 50px;
-            font-weight: bold; font-size: 24px; border: 4px solid white; z-index: 5;
-            animation: bounce 0.5s infinite alternate;
-        }
-        @keyframes bounce { from { top: 18%; } to { top: 17%; } }
-
-        /* Celebratory Results Screen */
+        /* Results Screen */
         #results-screen {
             display: none; position: absolute; width: 100%; height: 100%;
             background: linear-gradient(135deg, #1e1e2e 0%, #313244 100%);
-            z-index: 300; color: white;
-            flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+            z-index: 300; color: white; flex-direction: column; align-items: center; justify-content: center;
         }
-        
-        .trophy { font-size: 120px; margin-bottom: 10px; animation: pop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+        .final-scores { display: flex; gap: 40px; margin: 30px 0; }
+        .score-card { background: rgba(255,255,255,0.1); padding: 30px 50px; border-radius: 25px; border: 5px solid white; text-align: center; }
+        .val { font-size: 80px; display: block; font-weight: bold; }
 
-        .final-score-row { display: flex; gap: 50px; margin: 20px 0; }
-        .score-card { 
-            background: rgba(255,255,255,0.1); padding: 20px 40px; 
-            border-radius: 20px; text-align: center; border: 4px solid white;
-        }
-        .card-a { border-color: var(--team-a); }
-        .card-b { border-color: var(--team-b); }
-        .score-val { font-size: 60px; font-weight: bold; display: block; }
+        /* Confetti */
+        .confetti { position: absolute; width: 10px; height: 10px; background-color: #f2d74e; top: -10%; z-index: 301; animation: fall 3s linear infinite; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+        .wrong-flash { background-color: #ffcccc !important; }
+
+        #edit-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 30px; border-radius: 20px; border: 5px solid #333; z-index: 200; text-align: center; }
     </style>
 </head>
 <body>
 
     <div id="start-page">
-        <div id="countdown-text">3</div>
         <div class="start-page-controls">
             <button id="play-btn">START</button>
-            <button id="edit-btn" onclick="openEdit()">EDIT WORDS</button>
+            <button id="edit-btn" onclick="document.getElementById('edit-modal').style.display='block'">EDIT WORDS</button>
         </div>
     </div>
 
     <div id="edit-modal">
         <h3>Spelling Words</h3>
-        <textarea id="vocab-input">ham, jam, yam, dad, mad, sad</textarea><br>
-        <button onclick="closeEdit()" style="padding:10px 20px; cursor:pointer; background:#3498db; color:white; border:none; border-radius:10px;">SAVE</button>
+        <textarea id="vocab-input" style="width:300px; height:100px;">ham, jam, yam, dad, mad, sad</textarea><br><br>
+        <button onclick="document.getElementById('edit-modal').style.display='none'" style="padding:10px 20px; background:#2ecc71; color:white; border:none; border-radius:10px; cursor:pointer;">SAVE</button>
     </div>
 
     <div id="game-container">
-        <div id="double-alert">DOUBLE POINTS!</div>
         <div class="side" id="side-a">
             <div class="score-display side-a-text">TEAM A: <span id="score-a">0</span></div>
-            <div class="vocab-img-container"><img id="img-a" class="vocab-img" src=""></div>
+            <div class="vocab-img-container"><img id="img-a" class="vocab-img"></div>
             <div class="word-display" id="display-a"></div>
             <div id="letters-a" class="letters-container"></div>
         </div>
-
         <div id="timer-bomb"><span id="timer-val">60</span></div>
-
         <div class="side" id="side-b">
             <div class="score-display side-b-text">TEAM B: <span id="score-b">0</span></div>
-            <div class="vocab-img-container"><img id="img-b" class="vocab-img" src=""></div>
+            <div class="vocab-img-container"><img id="img-b" class="vocab-img"></div>
             <div class="word-display" id="display-b"></div>
             <div id="letters-b" class="letters-container"></div>
         </div>
     </div>
 
     <div id="results-screen">
-        <div class="trophy">🏆</div>
-        <h1 id="winner-msg" style="font-size:80px; margin:0;"></h1>
+        <h1 style="font-size: 50px; margin: 0;">GAME OVER!</h1>
+        <h2 id="winner-msg" style="font-size: 80px; margin: 10px 0; text-shadow: 0 5px 15px rgba(0,0,0,0.5);"></h2>
         
-        <div class="final-score-row">
-            <div class="score-card card-a">
-                <span>TEAM A</span>
-                <span id="final-a" class="score-val">0</span>
+        <div class="final-scores">
+            <div class="score-card" style="border-color: var(--team-a);">
+                <span style="font-size: 24px;">TEAM A</span>
+                <span id="res-a" class="val">0</span>
             </div>
-            <div class="score-card card-b">
-                <span>TEAM B</span>
-                <span id="final-b" class="score-val">0</span>
+            <div class="score-card" style="border-color: var(--team-b);">
+                <span style="font-size: 24px;">TEAM B</span>
+                <span id="res-b" class="val">0</span>
             </div>
         </div>
 
@@ -195,57 +131,41 @@
     </div>
 
     <script>
-        let originalWords = [];
-        let gameWords = [];
-        let currentIndex = 0;
-        let scoreA = 0, scoreB = 0, timeLeft = 60;
-        let gameActive = false;
-        let isDoublePoints = false;
+        let originalWords = [], gameWords = [], currentIndex = 0;
+        let scoreA = 0, scoreB = 0, timeLeft = 60, gameActive = false, isDoublePoints = false;
+        let audioCtx;
 
-        function openEdit() { document.getElementById('edit-modal').style.display = 'block'; }
-        function closeEdit() { document.getElementById('edit-modal').style.display = 'none'; }
+        function initAudio() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        function playSound(freq, type, duration) {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + duration);
+        }
 
         document.getElementById('play-btn').onclick = function() {
-            window.speechSynthesis.getVoices(); 
-            this.style.display = 'none';
-            document.getElementById('edit-btn').style.display = 'none';
-            startCountdown();
+            initAudio();
+            document.getElementById('start-page').style.display = 'none';
+            initGame();
         };
-
-        function startCountdown() {
-            const countdownEl = document.getElementById('countdown-text');
-            countdownEl.style.display = 'block';
-            let count = 3;
-            countdownEl.innerText = count;
-
-            const interval = setInterval(() => {
-                count--;
-                if (count > 0) {
-                    countdownEl.innerText = count;
-                } else {
-                    clearInterval(interval);
-                    document.getElementById('start-page').style.display = 'none';
-                    initGame();
-                }
-            }, 1000);
-        }
 
         function initGame() {
             const input = document.getElementById('vocab-input').value;
             originalWords = input.split(',').map(w => w.trim().toLowerCase()).filter(w => w !== "");
             gameWords = [...originalWords].sort(() => Math.random() - 0.5);
-            
             document.getElementById('game-container').style.display = 'flex';
             gameActive = true;
             nextRound();
             startTimer();
-        }
-
-        function speak(word) {
-            window.speechSynthesis.cancel();
-            const msg = new SpeechSynthesisUtterance(word);
-            msg.rate = 0.7; 
-            window.speechSynthesis.speak(msg);
         }
 
         function nextRound() {
@@ -254,60 +174,45 @@
                 currentIndex = 0;
             }
             const word = gameWords[currentIndex];
-            setupSide('a', word);
-            setupSide('b', word);
-            speak(word);
+            setupSide('a', word); setupSide('b', word);
+            window.speechSynthesis.cancel();
+            const msg = new SpeechSynthesisUtterance(word);
+            msg.rate = 0.8; window.speechSynthesis.speak(msg);
         }
 
         function setupSide(side, word) {
             const display = document.getElementById(`display-${side}`);
             const letters = document.getElementById(`letters-${side}`);
             const img = document.getElementById(`img-${side}`);
-
             img.src = `${word}.jpg`;
             img.onerror = () => { img.src = "https://via.placeholder.com/450x350?text=" + word; };
-
-            display.innerHTML = `<div class="drop-zone" data-expected="${word[0]}" ondragover="event.preventDefault()" ondrop="handleDrop(event)"></div>${word.substring(1)}`;
-
+            display.innerHTML = `<div class="drop-zone" id="zone-${side}"></div>${word.substring(1)}`;
             letters.innerHTML = '';
             let choices = [word[0], 'b', 's'].sort(() => Math.random() - 0.5);
             choices.forEach(char => {
                 const l = document.createElement('div');
-                l.className = 'letter'; l.textContent = char; l.draggable = true;
-                l.addEventListener('dragstart', e => {
-                    e.dataTransfer.setData('text', char);
-                    e.dataTransfer.setData('side', side);
-                });
+                l.className = 'letter'; l.textContent = char;
+                l.onclick = () => handleTap(side, char, word[0]);
                 letters.appendChild(l);
             });
         }
 
-        function handleDrop(e) {
+        function handleTap(side, tapped, correct) {
             if (!gameActive) return;
-            const char = e.dataTransfer.getData('text');
-            const side = e.dataTransfer.getData('side');
-            const zone = e.target.closest('.drop-zone');
-            
-            if (!zone || !zone.parentNode.id.includes(side)) return;
-
-            if (char === zone.dataset.expected) {
-                zone.innerHTML = char;
-                zone.style.color = "#2ecc71";
-                
-                // Point logic: 10 base, 20 if double
-                let pointsToAdd = isDoublePoints ? 20 : 10;
-                
-                if (side === 'a') scoreA += pointsToAdd; else scoreB += pointsToAdd;
-                
+            if (tapped === correct) {
+                playSound(880, 'sine', 0.4);
+                document.getElementById(`zone-${side}`).innerText = correct;
+                let pts = timeLeft <= 10 ? 20 : 10;
+                if (side === 'a') scoreA += pts; else scoreB += pts;
                 document.getElementById('score-a').innerText = scoreA;
                 document.getElementById('score-b').innerText = scoreB;
-                
                 gameActive = false;
-                setTimeout(() => { 
-                    currentIndex++; 
-                    gameActive = true; 
-                    nextRound(); 
-                }, 700);
+                setTimeout(() => { currentIndex++; gameActive = true; nextRound(); }, 600);
+            } else {
+                playSound(120, 'sawtooth', 0.3);
+                const sideEl = document.getElementById(`side-${side}`);
+                sideEl.classList.add('wrong-flash');
+                setTimeout(() => sideEl.classList.remove('wrong-flash'), 200);
             }
         }
 
@@ -315,43 +220,32 @@
             const timerInterval = setInterval(() => {
                 timeLeft--;
                 document.getElementById('timer-val').innerText = timeLeft;
-                
-                // Last 10 seconds check
-                if (timeLeft <= 10 && timeLeft > 0) {
-                    isDoublePoints = true;
-                    document.getElementById('timer-bomb').classList.add('double-mode');
-                    document.getElementById('double-alert').style.display = 'block';
-                }
-
-                if (timeLeft <= 0) { 
-                    clearInterval(timerInterval); 
-                    showResults(); 
-                }
+                if (timeLeft <= 10) document.getElementById('timer-bomb').style.borderColor = "#f1c40f";
+                if (timeLeft <= 0) { clearInterval(timerInterval); showResults(); }
             }, 1000);
+        }
+
+        function createConfetti() {
+            for(let i=0; i<50; i++) {
+                const c = document.createElement('div');
+                c.className = 'confetti';
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.backgroundColor = ['#f2d74e','#95c3de','#ff9a91','#ace6d3'][Math.floor(Math.random()*4)];
+                c.style.animationDelay = Math.random() * 3 + 's';
+                document.getElementById('results-screen').appendChild(c);
+            }
         }
 
         function showResults() {
             gameActive = false;
-            window.speechSynthesis.cancel();
             document.getElementById('game-container').style.display = 'none';
-            const screen = document.getElementById('results-screen');
+            document.getElementById('res-a').innerText = scoreA;
+            document.getElementById('res-b').innerText = scoreB;
             const msg = document.getElementById('winner-msg');
-            
-            document.getElementById('final-a').innerText = scoreA;
-            document.getElementById('final-b').innerText = scoreB;
-            
-            screen.style.display = 'flex';
-            
-            if (scoreA > scoreB) {
-                msg.innerText = "TEAM A WINS!";
-                msg.style.color = "var(--team-a)";
-            } else if (scoreB > scoreA) {
-                msg.innerText = "TEAM B WINS!";
-                msg.style.color = "var(--team-b)";
-            } else {
-                msg.innerText = "IT'S A DRAW!";
-                msg.style.color = "white";
-            }
+            if (scoreA > scoreB) { msg.innerText = "TEAM A WINS! 🏆"; msg.style.color = "var(--team-a)"; createConfetti(); }
+            else if (scoreB > scoreA) { msg.innerText = "TEAM B WINS! 🏆"; msg.style.color = "var(--team-b)"; createConfetti(); }
+            else { msg.innerText = "IT'S A DRAW! 🤝"; }
+            document.getElementById('results-screen').style.display = 'flex';
         }
     </script>
 </body>
